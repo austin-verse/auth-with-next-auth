@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import classes from "./auth-form.module.css";
-
+import { signIn } from "next-auth/client";
 // 사용자 생성 함수
 async function CreateUser(email, password) {
 	const response = await fetch("/api/auth/signup", {
@@ -26,13 +26,19 @@ function AuthForm() {
 		setIsLogin((prevState) => !prevState);
 	}
 
-	// 회원가입 & 로그인 핸들러 구현
+	// 회원가입 & 로그인 핸들러
 	async function submitHandler(event) {
 		event.preventDefault();
 		const enteredEmail = emailInputRef.current.value;
 		const enteredPassword = passwordInputRef.current.value;
 		// optional: Validation
 		if (isLogin) {
+			const result = await signIn("credentials", {
+				redirect: false,
+				email: enteredEmail,
+				password: enteredPassword,
+			});
+			console.log(result);
 			// 로그인 하기
 		} else {
 			try {
