@@ -26,7 +26,7 @@ export default NextAuth({
 					client.close();
 					throw new Error("Password incorrect.");
 				}
-
+				// create JWT with email
 				return { email: user.email };
 			},
 		}),
