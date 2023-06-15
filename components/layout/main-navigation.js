@@ -5,6 +5,7 @@ import { useSession, signOut } from "next-auth/client";
 
 function MainNavigation() {
 	const [session, loading] = useSession();
+	console.log(session);
 	const logoutHandler = () => {
 		signOut();
 	};
